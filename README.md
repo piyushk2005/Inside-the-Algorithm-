@@ -1,40 +1,57 @@
-# Inside the Algorithm
+# Inside the Algorithm — Landing Page
 
-A zero-setup, browser-based visual playground for understanding machine learning — built for **Smackathon PS 02** (SDG 4 · Quality Education).
-
-## Problem
-
-Core ML concepts — gradient descent, decision boundaries, overfitting, neural network basics — are usually taught abstractly through equations and slides. Students can follow the math without ever building real intuition, and setting up a coding environment discourages beginners before they even start.
-
-## Solution
-
-An interactive, no-install browser tool where students watch ML algorithms train in real time. Adjusting parameters like learning rate or model complexity instantly changes decision boundaries, loss curves, and network weights — no coding required.
-
-## Modules
-
-1. **Landing page** — module cards with a Guided Walkthrough / Free Explore toggle
-2. **Gradient Descent Visualizer** — loss curve with a rolling-ball animation, learning rate & momentum sliders, convergence/divergence states
-3. **Decision Boundary Playground** — click-to-add data points, live-redrawing decision boundary, complexity slider (underfit → overfit)
-4. **Overfitting Demonstrator** — train/test split with diverging loss curves
-5. **Neural Network Trainer** — node/edge network diagram with weight-based edge styling and forward-pass animation
-6. **Shared control panel** — Play / Pause / Step / Reset / speed control, consistent across all modules
-7. **Guided walkthrough mode** — scripted step-by-step scenarios per module
-8. **Architecture diagram page** — visual breakdown of the simulation pipeline
-
-## Tech stack
-
-- React + Vite
-- Client-side only — no backend, all computation runs in the browser
-
-## Getting started
-
-```bash
-git clone https://github.com/piyushk2005/Inside-the-Algorithm-.git
-cd Inside-the-Algorithm-
-npm install
-npm run dev
+## What's in this zip
+```
+inside-the-algorithm/
+├── index.html
+├── package.json
+├── vite.config.js
+├── src/
+│   ├── main.jsx        (entry point)
+│   ├── App.jsx          (renders Landing)
+│   └── pages/
+│       └── Landing.jsx  (the landing page component)
 ```
 
-## Status
+## How to replace files in your existing GitHub repo
 
-Prototype built for Smackathon show round (Aug 6).
+1. **Unzip** this file somewhere on your machine.
+
+2. **Clone your existing repo** (if you haven't already):
+   ```bash
+   git clone https://github.com/<your-username>/<your-repo>.git
+   cd <your-repo>
+   ```
+
+3. **Copy the files over**, replacing what's there. From inside the unzipped
+   `inside-the-algorithm` folder:
+   ```bash
+   cp -r index.html package.json vite.config.js src /path/to/your-repo/
+   ```
+   If your repo already has its own `package.json` with other dependencies,
+   don't overwrite it blindly — instead just merge in the `react`,
+   `react-dom`, `vite`, and `@vitejs/plugin-react` entries, and copy only
+   `src/pages/Landing.jsx`, `src/App.jsx`, and `src/main.jsx`.
+
+4. **Commit and push**:
+   ```bash
+   cd /path/to/your-repo
+   git add .
+   git commit -m "Replace landing page with Inside the Algorithm design"
+   git push origin main
+   ```
+   (use whatever branch name your repo uses instead of `main` if different)
+
+5. **Install and run locally to check it** before pushing, if you want:
+   ```bash
+   npm install
+   npm run dev
+   ```
+   Then open the local URL it prints (usually `http://localhost:5173`).
+
+## Notes
+- This is just the landing page (Page 1). The four module cards currently
+  link to nothing — Module 1 (Gradient Descent) and the rest still need to
+  be built and wired up with routing (e.g. React Router) once you're ready.
+- Fonts (Inter, JetBrains Mono) load from Google Fonts via a `<link>` tag
+  inside `Landing.jsx` — no extra setup needed.
