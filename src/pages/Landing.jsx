@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useMode } from "../context/ModeContext";
 
 /**
  * Inside the Algorithm — Landing Page
@@ -191,7 +192,7 @@ function NodeIcon({ variant }) {
   );
 }
 
-function ModuleCard({ variant, title, description, difficulty }) {
+function ModuleCard({ variant, title, description, difficulty, onLaunch }) {
   const [hover, setHover] = useState(false);
   return (
     <div
@@ -232,6 +233,8 @@ function ModuleCard({ variant, title, description, difficulty }) {
       </div>
 
       <button
+        onClick={onLaunch}
+        disabled={!onLaunch}
         style={{
           marginTop: 4,
           alignSelf: "flex-start",
@@ -243,18 +246,19 @@ function ModuleCard({ variant, title, description, difficulty }) {
           border: "1px solid #3ED9C4",
           borderRadius: 6,
           padding: "8px 16px",
-          cursor: "pointer",
+          cursor: onLaunch ? "pointer" : "not-allowed",
+          opacity: onLaunch ? 1 : 0.5,
           transition: "all 0.2s ease",
         }}
       >
-        Launch →
+        {onLaunch ? "Launch →" : "Coming soon"}
       </button>
     </div>
   );
 }
 
 function ModeToggle() {
-  const [guided, setGuided] = useState(true);
+  const { guided, setGuided } = useMode();
   return (
     <div
       style={{
@@ -294,33 +298,45 @@ function ModeToggle() {
 }
 
 // ---------- Page ----------
-export default function InsideTheAlgorithmLanding() {
+export default function InsideTheAlgorithmLanding({ onLaunchModule, onNavigate }) {
   const modules = [
     {
+      id: "gradient-descent",
       variant: "descent",
       title: "Gradient descent",
       description: "Watch a ball roll down a loss surface. Push the learning rate too far and see it diverge.",
       difficulty: "Beginner",
     },
     {
+      id: "decision-boundaries",
       variant: "boundary",
       title: "Decision boundaries",
       description: "Drop points on a plane and watch a classifier carve the space between them, live.",
       difficulty: "Beginner",
     },
     {
+      id: "overfitting",
       variant: "overfit",
       title: "Overfitting",
       description: "Train and validation curves split apart in real time as a model memorizes noise.",
       difficulty: "Intermediate",
     },
     {
+      id: "neural-network",
       variant: "network",
       title: "Neural network basics",
       description: "See weights brighten and dim across layers as a small network learns a pattern.",
       difficulty: "Intermediate",
     },
   ];
+
+  // All four modules are now built
+  const builtModules = new Set([
+    "gradient-descent",
+    "decision-boundaries",
+    "overfitting",
+    "neural-network",
+  ]);
 
   return (
     <div
@@ -360,7 +376,7 @@ export default function InsideTheAlgorithmLanding() {
         </div>
         <nav style={{ display: "flex", gap: 28, fontSize: 13.5, color: "#9BA3AC" }}>
           <a href="#modules" style={{ color: "inherit", textDecoration: "none" }}>Modules</a>
-          <a href="#architecture" style={{ color: "inherit", textDecoration: "none" }}>Architecture</a>
+          <a href="#architecture" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("architecture"); }} style={{ color: "inherit", textDecoration: "none", cursor: "pointer" }}>Architecture</a>
         </nav>
       </header>
 
@@ -445,7 +461,15 @@ export default function InsideTheAlgorithmLanding() {
           }}
         >
           {modules.map((m) => (
-            <ModuleCard key={m.title} {...m} />
+            <ModuleCard
+              key={m.id}
+              {...m}
+              onLaunch={
+                builtModules.has(m.id) && onLaunchModule
+                  ? () => onLaunchModule(m.id)
+                  : undefined
+              }
+            />
           ))}
         </div>
       </section>
@@ -464,7 +488,7 @@ export default function InsideTheAlgorithmLanding() {
         }}
       >
         <span>© Inside the Algorithm — built for learners, not for slides.</span>
-        <a href="#" style={{ color: "#3ED9C4", textDecoration: "none", fontFamily: "'JetBrains Mono', monospace" }}>
+        <a href="#" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("architecture"); }} style={{ color: "#3ED9C4", textDecoration: "none", fontFamily: "'JetBrains Mono', monospace", cursor: "pointer" }}>
           View architecture diagram →
         </a>
       </footer>
