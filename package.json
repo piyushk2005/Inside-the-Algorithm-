@@ -1,7 +1,10 @@
 {
   "name": "inside-the-algorithm",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.1.0",
+  "description": "Interactive Machine Learning visualizations built with React and Vite.",
+  "author": "Your Name",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,8 +12,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "framer-motion": "^11.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.30.1",
     "recharts": "^2.12.0"
   },
   "devDependencies": {
