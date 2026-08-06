@@ -1,0 +1,62 @@
+/* Add this to your global stylesheet (e.g. src/index.css), or import it
+   directly from main.jsx: import "./theme.css";
+
+   Everything keys off [data-theme] on <html>, set by ThemeContext.
+   Swap the CSS variable NAMES below to match whatever your existing
+   components already reference (e.g. if App.jsx currently hardcodes
+   #0B0E14 etc, replace those literals with var(--bg) and so on). */
+
+:root,
+[data-theme="dark"] {
+  --bg: #0B0E14;
+  --panel: #12161F;
+  --line: #232A38;
+  --text: #E7ECEF;
+  --muted: #8B94A7;
+  --accent: #5EEAD4;
+  --accent-warn: #F5A623;
+}
+
+[data-theme="light"] {
+  --bg: #F7F8FA;
+  --panel: #FFFFFF;
+  --line: #E1E4EA;
+  --text: #14161C;
+  --muted: #5B6472;
+  --accent: #0E9E8B;   /* darker cyan so it stays readable on white */
+  --accent-warn: #C97A00;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.theme-switcher:hover {
+  border-color: var(--accent);
+}
+
+.theme-switcher:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-switcher-icon {
+  display: inline-flex;
+  color: var(--accent);
+}
