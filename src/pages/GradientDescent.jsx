@@ -7,6 +7,7 @@ import LossChart from "../components/gradient-descent/LossChart";
 import StatusCallout from "../components/gradient-descent/StatusCallout";
 import GuidedWalkthrough from "../components/shared/GuidedWalkthrough";
 import PageHeader from "../components/shared/PageHeader";
+import AITeacher from "../components/shared/AITeacher";
 import { useMode } from "../context/ModeContext";
 
 const START_POINTS = [
@@ -236,6 +237,9 @@ export default function GradientDescent({ onBack }) {
         </div>
       </main>
 
+      <AITeacher module="decisionBoundary" state={{ accuracy }} />
+      <AITeacher module="overfitting" state={{ trainLoss, valLoss, degree }} />
+      <AITeacher module="neuralNetwork" state={{ accuracy, epoch }} />
       {guided && (
         <GuidedWalkthrough
           steps={[
