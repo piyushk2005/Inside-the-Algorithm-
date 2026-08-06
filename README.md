@@ -41,19 +41,6 @@ inside-the-algorithm/
 
 ---
 
-# 📸 Preview
-
-### Landing Page
-
-*(Add your project screenshot here)*
-
-```
-screenshots/
-└── landing-page.png
-```
-
----
-
 # 🛠️ Tech Stack
 
 - React
